@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react'
-import { formatLongDate, useI18n } from '../i18n'
+import { dictionaries, formatLongDate, LANGS, useI18n } from '../i18n'
 import { event } from '../config/event'
 import { PixelAsset } from '../components/PixelAsset'
 import { PixelWordmark } from '../components/PixelWordmark'
@@ -99,7 +99,15 @@ export function InvitationScreen({ onJoin }: Props) {
         </dl>
 
         <div className="invite__closing">
-          <p className="invite__copy">{t.invite.copy}</p>
+          {/* every translation sits in the same cell; only the active one is visible, so the
+              block is as tall as the longest language and switching never shifts the layout */}
+          <p className="invite__copy">
+            {LANGS.map((l) => (
+              <span key={l} className={l === lang ? undefined : 'invite__copy-ghost'} aria-hidden={l === lang ? undefined : true}>
+                {dictionaries[l].invite.copy}
+              </span>
+            ))}
+          </p>
           <div className="invite__actions">
             <ArcadeButton size="lg" arrow surface="light" onClick={onJoin}>
               {t.invite.cta}

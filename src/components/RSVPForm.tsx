@@ -125,7 +125,7 @@ export function RSVPForm({ draft, onChange, onSuccess }: Props) {
       {/* NAME */}
       <div className={`field ${errors.name ? 'has-error' : ''}`}>
         <label className="field__label" htmlFor={`${ids}-name`}>
-          <span className="field__num">01</span> {t.rsvp.nameLabel}
+          {t.rsvp.nameLabel}
         </label>
         <div className="field__input-wrap">
           <span className="field__prompt" aria-hidden="true">
@@ -159,7 +159,7 @@ export function RSVPForm({ draft, onChange, onSuccess }: Props) {
       {/* ATTENDANCE */}
       <fieldset className={`field ${errors.attendance ? 'has-error' : ''}`} aria-describedby={errors.attendance ? `${ids}-att-err` : undefined}>
         <legend className="field__label">
-          <span className="field__num">02</span> {t.rsvp.attendanceLabel}
+          {t.rsvp.attendanceLabel}
         </legend>
         <div className="choice-grid" role="radiogroup" aria-label={t.rsvp.attendanceLabel}>
           <button
@@ -197,7 +197,7 @@ export function RSVPForm({ draft, onChange, onSuccess }: Props) {
       {draft.attendance === 'yes' && (
         <div className={`field field--party ${errors.party ? 'has-error' : ''}`}>
           <div className="field__label" id={`${ids}-party-label`}>
-            <span className="field__num">03</span> {t.rsvp.partyLabel}
+            {t.rsvp.partyLabel}
             <small>{t.rsvp.partyHint}</small>
           </div>
           <div className="stepper" role="group" aria-labelledby={`${ids}-party-label`}>

@@ -794,13 +794,6 @@
   text-transform: none;
   color: var(--dim);
 }
-.field__num {
-  display: inline-block;
-  padding: 3px 4px 2px;
-  background: var(--lime);
-  color: var(--black);
-  font-size: 8px;
-}
 .field__input-wrap {
   position: relative;
 }
