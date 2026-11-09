@@ -4,6 +4,9 @@ import { useI18n } from '../i18n'
 import { event } from '../config/event'
 import { ArcadeButton } from './ArcadeButton'
 import { PixelIcon } from './PixelDecoration'
+
+/** Selected card: same heart sprite, colours flipped against the filled card. */
+const INVERTED = { a: '#0B0B0D', A: '#34343A' }
 import { PixelWordmark } from './PixelWordmark'
 import { play } from '../lib/sound'
 import { NAME_MAX, RSVP_MODE, submitRsvp, type Attendance, type RsvpErrorCode } from '../lib/rsvpClient'
@@ -167,7 +170,7 @@ export function RSVPForm({ draft, onChange, onSuccess }: Props) {
             className={`choice choice--yes ${draft.attendance === 'yes' ? 'is-on' : ''}`}
             onClick={() => setAttendance('yes')}
           >
-            <PixelIcon name="heart" size={34} depth={2} depthColor="#0B0B0D" palette={{ a: draft.attendance === 'yes' ? '#0B0B0D' : '#C4FF3B', A: draft.attendance === 'yes' ? '#0B0B0D' : '#7FB300', h: '#F1F0EB' }} />
+            <PixelIcon name="heart" size={34} palette={draft.attendance === 'yes' ? INVERTED : { a: '#C4FF3B', A: '#7FB300' }} />
             <span>{t.rsvp.yes}</span>
             <i className="choice__check" aria-hidden="true" />
           </button>
@@ -178,7 +181,7 @@ export function RSVPForm({ draft, onChange, onSuccess }: Props) {
             className={`choice choice--no ${draft.attendance === 'no' ? 'is-on' : ''}`}
             onClick={() => setAttendance('no')}
           >
-            <PixelIcon name="brokenHeart" size={34} depth={2} depthColor="#0B0B0D" palette={draft.attendance === 'no' ? { a: '#0B0B0D', A: '#0B0B0D' } : undefined} />
+            <PixelIcon name="brokenHeart" size={34} palette={draft.attendance === 'no' ? INVERTED : undefined} />
             <span>{t.rsvp.no}</span>
             <i className="choice__check" aria-hidden="true" />
           </button>

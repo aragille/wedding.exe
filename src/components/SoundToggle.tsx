@@ -19,7 +19,7 @@ export function SoundToggle() {
         {on ? (
           <path d="M7 3h1v3H7zM9 1h1v1h1v5h-1v1H9V7h1V2H9z" fill="currentColor" />
         ) : (
-          <path d="M7 2h1v1h1v1h1V3h1v1h-1v1h1v1h-1V5H9v1H8v1H7V6h1V5h1V4H8V3H7z" fill="currentColor" />
+          <path d="M6 2h1v1H6zM10 2h1v1h-1zM7 3h1v1H7zM9 3h1v1H9zM8 4h1v1H8zM7 5h1v1H7zM9 5h1v1H9zM6 6h1v1H6zM10 6h1v1h-1z" fill="currentColor" />
         )}
       </svg>
     </button>
