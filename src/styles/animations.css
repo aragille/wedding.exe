@@ -1,0 +1,296 @@
+/* =====================================================================
+   Motion — stepped, hard-edged, short. All of it respects reduced motion.
+   ===================================================================== */
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes blink-soft {
+  0%,
+  69% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0.25;
+  }
+}
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+.blink-soft {
+  animation: blink-soft 1.2s steps(1) infinite;
+}
+.blink-slow {
+  animation: blink-soft 1.6s steps(1) infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(-6px) rotate(var(--rot, 0deg));
+  }
+}
+@keyframes bob-small {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8%);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.6;
+  }
+}
+@keyframes drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-40px);
+  }
+}
+
+/* wordmark: letters drop in, then a shine sweeps */
+@keyframes pw-drop {
+  0% {
+    transform: translateY(-40%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(6%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes pw-shine {
+  0%,
+  70% {
+    transform: translateX(0) skewX(-24deg);
+  }
+  100% {
+    transform: translateX(var(--w, 120px)) skewX(-24deg);
+  }
+}
+.pixel-wordmark.is-animated .pw-letter {
+  transform-box: fill-box;
+  animation: pw-drop 0.5s steps(5) both;
+  animation-delay: calc(var(--pw-delay, 0s) + var(--i) * 0.055s);
+}
+.pw-shine {
+  transform: skewX(-24deg);
+  animation: pw-shine 5s steps(16) infinite;
+  animation-delay: calc(1.6s + var(--i) * 0.07s);
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes heart-grow {
+  0% {
+    transform: var(--base-t) scale(0);
+  }
+  55% {
+    transform: var(--base-t) scale(1.7);
+  }
+  75% {
+    transform: var(--base-t) scale(1.3);
+  }
+  100% {
+    transform: var(--base-t) scale(1.45);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8%);
+  }
+  75% {
+    transform: translateX(8%);
+  }
+}
+
+@keyframes tile-break {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--sx), var(--sy)) rotate(90deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-slices {
+  0% {
+    clip-path: inset(10% 0 80% 0);
+    transform: translateX(-6px);
+  }
+  20% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translateX(8px);
+  }
+  40% {
+    clip-path: inset(30% 0 55% 0);
+    transform: translateX(-4px);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translateX(6px);
+  }
+  80% {
+    clip-path: inset(5% 0 70% 0);
+    transform: translateX(-8px);
+  }
+  100% {
+    clip-path: inset(45% 0 40% 0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-steps {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate(0, -20px) rotate(0);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), 110vh) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+@keyframes wipe-out {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes meter-on {
+  from {
+    background: transparent;
+  }
+  to {
+    background: var(--black);
+  }
+}
+
+@keyframes intro-flash {
+  0% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Reduced motion: no loops, no shakes, no glitch; state changes are instant.
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .blink,
+  .blink-soft,
+  .blink-slow {
+    opacity: 1 !important;
+  }
+  .pw-shine,
+  .pixel-particles,
+  .crt {
+    display: none !important;
+  }
+}

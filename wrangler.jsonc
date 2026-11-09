@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wedding-exe",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  // RSVP storage. No database_id needed: the first `wrangler deploy` creates
+  // the database by name (or connects to an existing one with this name).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wedding-exe-rsvp",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Abuse protection: max 10 RSVP attempts per minute per IP (on top of Turnstile).
+  "ratelimits": [
+    {
+      "name": "RSVP_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ],
+  // TURNSTILE_SECRET_KEY is a secret: set it with `npx wrangler secret put TURNSTILE_SECRET_KEY`
+  // (locally it comes from .dev.vars).
+  "observability": { "enabled": true }
+}

@@ -1,0 +1,92 @@
+/* =====================================================================
+   Typography — three roles
+   1. Hero display: dimensional pixel lettering (SVG) + layered pixel text
+   2. Arcade metadata: Press Start 2P (Cyrillic verified)
+   3. Editorial: IBM Plex Sans / condensed Roboto Flex for oversized statements
+   ===================================================================== */
+
+.pixel,
+.eyebrow,
+.hud,
+.chip,
+.text-btn,
+.abtn {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+}
+@media (min-width: 720px) {
+  .eyebrow {
+    font-size: 10px;
+  }
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-stretch: 35%;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.82;
+}
+
+/* ---------- Layered (extruded) pixel text — for translated arcade titles ----------
+   Uses Press Start 2P so it works in Cyrillic. The face gets a highlight band via a
+   duplicated ::before layer (data-text) with a stepped background-clip gradient. */
+.layered-text {
+  --lt-face: var(--lime);
+  --lt-hi: #efffc9;
+  --lt-e1: var(--blue);
+  --lt-e2: var(--blue-deep);
+  --lt-e3: var(--blue-abyss);
+  position: relative;
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--lt-face);
+  text-shadow:
+    0.04em 0.04em 0 var(--lt-e1),
+    0.08em 0.08em 0 var(--lt-e1),
+    0.12em 0.12em 0 var(--lt-e2),
+    0.16em 0.16em 0 var(--lt-e2),
+    0.2em 0.2em 0 var(--lt-e3),
+    0.24em 0.24em 0 var(--lt-e3);
+  overflow-wrap: break-word;
+}
+.layered-text::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  text-shadow: none;
+  color: transparent;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0 0.15em,
+    var(--lt-hi) 0.15em 0.45em,
+    transparent 0.45em 1.3em
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+}
+.layered-text--orange {
+  --lt-face: var(--orange);
+  --lt-hi: #ffc2ad;
+  --lt-e1: var(--black);
+  --lt-e2: var(--black);
+  --lt-e3: var(--black);
+}

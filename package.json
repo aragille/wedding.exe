@@ -1,0 +1,39 @@
+{
+  "name": "wedding-exe",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "npm run build && vite preview",
+    "typecheck": "tsc -b",
+    "cf-typegen": "wrangler types",
+    "db:migrate": "wrangler d1 migrations apply wedding-exe-rsvp --remote --config wrangler.jsonc",
+    "db:migrate:local": "wrangler d1 migrations apply wedding-exe-rsvp --local --config wrangler.jsonc",
+    "deploy": "npm run build && npm run deploy:ci",
+    "deploy:ci": "wrangler deploy && npm run db:migrate",
+    "rsvp:list": "node scripts/rsvp.mjs list",
+    "rsvp:stats": "node scripts/rsvp.mjs stats",
+    "rsvp:csv": "node scripts/rsvp.mjs csv"
+  },
+  "dependencies": {
+    "@fontsource-variable/roboto-flex": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/press-start-2p": "^5.3.0",
+    "motion": "^14.11.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.68.0",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.7",
+    "wrangler": "^4.158.0"
+  }
+}
