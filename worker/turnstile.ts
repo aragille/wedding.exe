@@ -20,9 +20,10 @@ export async function verifyTurnstile(
   form.append('idempotency_key', idempotencyKey)
   try {
     const res = await fetch(VERIFY_URL, { method: 'POST', body: form })
-    if (!res.ok) return { success: false, codes: [`http-${res.status}`] }
-    const data = (await res.json()) as { success?: boolean; 'error-codes'?: string[] }
-    return { success: data.success === true, codes: data['error-codes'] ?? [] }
+    // Cloudflare answers 400 with a JSON reason (e.g. invalid-input-secret), so read the body either way.
+    const data = (await res.json().catch(() => null)) as { success?: boolean; 'error-codes'?: string[] } | null
+    const codes = data?.['error-codes']?.length ? data['error-codes'] : res.ok ? [] : [`http-${res.status}`]
+    return { success: res.ok && data?.success === true, codes }
   } catch {
     return { success: false, codes: ['network-error'] }
   }
