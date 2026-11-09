@@ -49,6 +49,10 @@ export interface TurnstileHandle {
   getToken: (timeoutMs?: number) => Promise<string>
   /** Tokens are single-use: call after every submit attempt. */
   reset: () => void
+  /** true while Cloudflare is waiting for the guest to tick the box */
+  needsInteraction: () => boolean
+  /** bring the widget into view */
+  reveal: () => void
 }
 
 export const TurnstileWidget = forwardRef<TurnstileHandle, { lang: Lang }>(function TurnstileWidget({ lang }, ref) {
@@ -56,6 +60,7 @@ export const TurnstileWidget = forwardRef<TurnstileHandle, { lang: Lang }>(funct
   const widgetId = useRef<string | null>(null)
   const token = useRef<string | null>(null)
   const waiters = useRef<Array<(t: string) => void>>([])
+  const interactive = useRef(false)
 
   useEffect(() => {
     if (!TURNSTILE_SITE_KEY) {
@@ -74,7 +79,14 @@ export const TurnstileWidget = forwardRef<TurnstileHandle, { lang: Lang }>(funct
           language: lang,
           action: 'rsvp',
           'refresh-expired': 'auto',
+          'before-interactive-callback': () => {
+            interactive.current = true
+          },
+          'after-interactive-callback': () => {
+            interactive.current = false
+          },
           callback: (t: string) => {
+            interactive.current = false
             token.current = t
             waiters.current.splice(0).forEach((w) => w(t))
           },
@@ -117,6 +129,8 @@ export const TurnstileWidget = forwardRef<TurnstileHandle, { lang: Lang }>(funct
       token.current = null
       if (widgetId.current && window.turnstile) window.turnstile.reset(widgetId.current)
     },
+    needsInteraction: () => interactive.current && !token.current,
+    reveal: () => el.current?.scrollIntoView({ block: 'center', behavior: 'smooth' }),
   }))
 
   return <div ref={el} className="turnstile" />

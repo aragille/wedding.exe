@@ -74,7 +74,7 @@ export const en = {
       network: "Couldn't save. Try again.",
       server: "Couldn't save. Try again.",
       rateLimited: 'Too many tries. Wait a minute.',
-      verification: "Couldn't verify the request. Try again.",
+      verification: 'Tick the box above, then try again.',
     },
     yesHeadline: "YOU'RE ON THE LIST!",
     yesCopy: 'See you on April 17, 2027.',

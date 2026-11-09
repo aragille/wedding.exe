@@ -45,7 +45,10 @@ export async function submitRsvp(payload: RsvpPayload): Promise<RsvpResult> {
       const body = (await res.json().catch(() => null)) as { ok?: boolean; id?: string; error?: string; field?: string } | null
       if (res.ok && body?.ok && body.id) return { ok: true, id: body.id }
       if (res.status === 429) return { ok: false, error: 'rate_limited' }
-      if (res.status === 403 && body?.error === 'verification_failed') return { ok: false, error: 'verification' }
+      if (res.status === 403 && body?.error === 'verification_failed') {
+        console.warn('RSVP verification rejected:', (body as { codes?: string[] }).codes)
+        return { ok: false, error: 'verification' }
+      }
       if (res.status === 400) return { ok: false, error: 'validation', field: body?.field }
       return { ok: false, error: 'server' }
     } catch {

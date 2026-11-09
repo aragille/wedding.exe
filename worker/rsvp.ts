@@ -70,7 +70,12 @@ export async function handleRsvp(request: Request, env: Env): Promise<Response> 
     // 2) Human check.
     if (!env.TURNSTILE_SECRET_KEY) return fail('misconfigured', 500)
     const human = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, v.turnstileToken, ip, v.idempotencyKey)
-    if (!human) return fail('verification_failed', 403)
+    if (!human.success) {
+      // Reason codes are generic (no secrets) and make setup problems diagnosable,
+      // e.g. "invalid-input-secret" = the Worker's secret key is wrong.
+      console.warn('turnstile_rejected', human.codes.join(','))
+      return fail('verification_failed', 403, { codes: human.codes })
+    }
 
     // 3) Insert. ON CONFLICT covers two identical requests racing each other.
     const id = crypto.randomUUID()

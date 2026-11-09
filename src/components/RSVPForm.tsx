@@ -60,6 +60,14 @@ export function RSVPForm({ draft, onChange, onSuccess }: Props) {
     const partySize = attendance === 'yes' ? draft.partySize : 0
     let token = 'mock'
     if (RSVP_MODE === 'api') {
+      // Cloudflare is asking for a tick → say so now instead of waiting and failing.
+      if (turnstile.current?.needsInteraction()) {
+        setBusy(false)
+        play('error')
+        setSubmitError('verification')
+        turnstile.current.reveal()
+        return
+      }
       try {
         token = (await turnstile.current?.getToken()) ?? ''
       } catch {
