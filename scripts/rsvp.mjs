@@ -17,12 +17,39 @@ const args = process.argv.slice(2)
 const cmd = args[0] ?? 'list'
 const where = args.includes('--local') ? '--local' : '--remote'
 
+/** Turn Wrangler's error into one actionable line instead of a stack trace. */
+function explain(text) {
+  const t = text.toLowerCase()
+  if (t.includes('cloudflare_api_token') || t.includes('not authenticated') || t.includes('wrangler login'))
+    return 'Not logged in to Cloudflare. Run this once, then try again:\n\n  npx wrangler login\n'
+  if (t.includes("couldn't find") || t.includes('not found') || t.includes('could not find'))
+    return `The production database "${DB}" doesn't exist yet. It is created by the first deploy (see README → Deploy).\nTo read your local test database instead:  npm run rsvp:${cmd} -- --local\n`
+  if (t.includes('no such table'))
+    return where === '--local'
+      ? 'The local RSVP table is missing. Run:  npm run db:migrate:local\n'
+      : 'The RSVP table is missing in production. Run:  npm run db:migrate\n'
+  return `Wrangler error: ${text.trim()}\n`
+}
+
 function query(sql) {
-  const out = execFileSync(
-    'npx',
-    ['wrangler', 'd1', 'execute', DB, where, '--json', '--config', 'wrangler.jsonc', '--command', sql],
-    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] },
-  )
+  let out
+  try {
+    out = execFileSync(
+      'npx',
+      ['wrangler', 'd1', 'execute', DB, where, '--json', '--config', 'wrangler.jsonc', '--command', sql],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+    )
+  } catch (err) {
+    const raw = `${err.stdout ?? ''}${err.stderr ?? ''}`
+    let text = raw
+    try {
+      text = JSON.parse(raw.slice(raw.indexOf('{'))).error?.text ?? raw
+    } catch {
+      /* not JSON — use raw output */
+    }
+    process.stderr.write(`\n${explain(text)}`)
+    process.exit(1)
+  }
   const parsed = JSON.parse(out.slice(out.indexOf('[')))
   return parsed[0]?.results ?? []
 }
@@ -37,8 +64,8 @@ if (cmd === 'list') {
 } else if (cmd === 'stats') {
   const [s] = query(
     `SELECT COUNT(*) AS responses,
-            SUM(attendance = 'yes') AS accepted,
-            SUM(attendance = 'no') AS declined,
+            COALESCE(SUM(attendance = 'yes'), 0) AS accepted,
+            COALESCE(SUM(attendance = 'no'), 0) AS declined,
             COALESCE(SUM(party_size), 0) AS people_attending
        FROM rsvp`,
   )
