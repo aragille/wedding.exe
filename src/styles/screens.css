@@ -1216,7 +1216,7 @@
   font-weight: 900;
   font-stretch: 45%;
   /* longest line ("DANCING TIL" ≈ 5.9em) always fits → every label is 1–2 lines in both languages */
-  font-size: min(clamp(30px, 9vw, 64px), calc((100cqi - 102px) / 6.1));
+  font-size: min(clamp(24px, 7vw, 46px), calc((100cqi - 102px) / 6.1));
   line-height: 0.9;
   text-wrap: balance;
   text-transform: uppercase;
@@ -1234,7 +1234,7 @@
     gap: 26px;
   }
   .plan__label {
-    font-size: min(64px, calc((100cqi - 138px) / 6.1));
+    font-size: min(46px, calc((100cqi - 138px) / 6.1));
   }
 }
 
@@ -1270,7 +1270,7 @@
     padding: 14px 0;
   }
   .plan__label {
-    font-size: min(64px, calc((100cqi - 154px) / 6.1));
+    font-size: min(46px, calc((100cqi - 154px) / 6.1));
   }
 }
 
