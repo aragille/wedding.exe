@@ -1132,6 +1132,56 @@
   padding: 12px 0;
   border-bottom: 1px solid var(--black);
 }
+/* retro item wobble: 4 hard frames, no easing — each object on its own beat */
+.plan__art,
+.plan__float {
+  animation: retro-tilt 1.2s steps(1) infinite;
+}
+.plan__item:nth-child(2) .plan__art,
+.plan__float:nth-child(3) {
+  animation-duration: 1s;
+  animation-delay: -0.3s;
+}
+.plan__item:nth-child(3) .plan__art,
+.plan__float:nth-child(4) {
+  animation-duration: 1.4s;
+  animation-delay: -0.7s;
+}
+.plan__item:nth-child(4) .plan__art {
+  animation-duration: 0.9s;
+  animation-delay: -0.5s;
+}
+.plan__float {
+  animation-name: retro-tilt-bob;
+}
+@keyframes retro-tilt {
+  0% {
+    transform: rotate(-3deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  75% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes retro-tilt-bob {
+  0% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  25% {
+    transform: rotate(0deg) translateY(-4px);
+  }
+  50% {
+    transform: rotate(4deg) translateY(0);
+  }
+  75% {
+    transform: rotate(0deg) translateY(-4px);
+  }
+}
 .plan__art {
   box-shadow:
     0 0 0 3px var(--black),
