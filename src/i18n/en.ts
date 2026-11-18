@@ -49,6 +49,7 @@ export const en = {
     dateLabel: 'DATE',
     timeLabel: 'START',
     venueLabel: 'VENUE',
+    cityLabel: 'CITY',
     addressLabel: 'ADDRESS',
     dressLabel: 'DRESS CODE',
     deadlineLabel: 'RSVP BY',

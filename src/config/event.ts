@@ -40,7 +40,7 @@ export const event: EventConfig = {
   venue: {
     name: { en: 'Nreni Restaurant', ru: 'Ресторан Nreni' },
     address: null,
-    city: null,
+    city: { en: 'Yerevan', ru: 'Ереван' },
     mapUrl: null,
   },
   startTime: '17:00',

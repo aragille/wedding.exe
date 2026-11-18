@@ -5,7 +5,7 @@ import type { AssetKey } from '../config/characterAssets'
 import { PixelAsset } from '../components/PixelAsset'
 import { PixelWordmark } from '../components/PixelWordmark'
 import { ArcadeButton } from '../components/ArcadeButton'
-import { StickerField, type StickerSpec } from '../components/PixelDecoration'
+import { PixelIcon, StickerField, type StickerSpec } from '../components/PixelDecoration'
 
 interface Props {
   onJoin: () => void
@@ -36,7 +36,7 @@ const TILE: Partial<Record<AssetKey, string>> = {
 
 const STICKERS: StickerSpec[] = [
   { name: 'sparkle', x: 58, y: 5, size: 20, palette: { a: '#7A6CE0', h: '#0B0B0D' }, float: true },
-  { name: 'plus', x: 2, y: 62, size: 14, palette: { a: '#FF4D16' }, hideOnMobile: true },
+  { name: 'plus', x: 2, y: 74, size: 14, palette: { a: '#FF4D16' }, hideOnMobile: true },
   { name: 'cross', x: 96, y: 96, size: 14, palette: { a: '#3156FF' } },
 ]
 
@@ -44,11 +44,12 @@ export function PlanScreen({ onJoin }: Props) {
   const { t, lang } = useI18n()
   const reduced = useReducedMotion()
 
-  const facts: Array<{ k: string; v: string }> = [{ k: t.plan.dateLabel, v: formatLongDate(event.date, lang) }]
+  const facts: Array<{ k: string; v: string; plane?: boolean }> = [{ k: t.plan.dateLabel, v: formatLongDate(event.date, lang) }]
   if (event.startTime) facts.push({ k: t.plan.timeLabel, v: event.startTime })
   facts.push({ k: t.plan.venueLabel, v: event.venue.name[lang].toUpperCase() })
   if (event.venue.address) facts.push({ k: t.plan.addressLabel, v: event.venue.address[lang] })
-  if (event.venue.city) facts.push({ k: '', v: event.venue.city[lang] })
+  // guests fly in — a little plane cruises next to the city
+  if (event.venue.city) facts.push({ k: t.plan.cityLabel, v: event.venue.city[lang], plane: true })
   if (event.dressCode) facts.push({ k: t.plan.dressLabel, v: event.dressCode[lang] })
   if (event.rsvpDeadline) facts.push({ k: t.plan.deadlineLabel, v: formatLongDate(event.rsvpDeadline, lang) })
 
@@ -87,7 +88,15 @@ export function PlanScreen({ onJoin }: Props) {
           {facts.map((d, i) => (
             <div key={i} className="facts__row">
               <dt>{d.k}</dt>
-              <dd>{d.v}</dd>
+              <dd>
+                {d.v}
+                {d.plane && (
+                  <span className="facts__plane" aria-hidden="true">
+                    <i className="facts__trail" />
+                    <PixelIcon name="plane" size={42} depth={1} />
+                  </span>
+                )}
+              </dd>
             </div>
           ))}
         </dl>

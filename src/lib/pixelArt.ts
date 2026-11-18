@@ -290,6 +290,18 @@ export const pixelArt = {
     '.aaaaaa.',
     '.aaaaaa.',
   ),
+  plane: s(
+    { a: c.blue, A: c.blueDeep, h: c.offWhite },
+    '......aa......',
+    '.......aa.....',
+    'a.......aa....',
+    'aa..aaaaaaaaa.',
+    'aaaaahahahaaaa',
+    'AA..AAAAAAAAA.',
+    'A.......AA....',
+    '.......AA.....',
+    '......AA......',
+  ),
   /* -------- abstract placeholder silhouettes (NOT depictions of the couple) -------- */
   bustA: s(
     { a: c.black },

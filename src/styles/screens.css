@@ -930,6 +930,35 @@
   line-height: 1;
   text-transform: uppercase;
 }
+/* city row: plane + dashed contrail, cruising in 4 hard frames */
+.facts__plane {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 0.4em;
+  vertical-align: middle;
+  animation: plane-cruise 1.6s steps(1) infinite;
+}
+.facts__trail {
+  width: 34px;
+  border-top: 3px dashed var(--blue);
+  opacity: 0.6;
+}
+@keyframes plane-cruise {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(4px, -3px);
+  }
+  50% {
+    transform: translate(8px, 0);
+  }
+  75% {
+    transform: translate(4px, 3px);
+  }
+}
+
 .invite__closing {
   display: grid;
   align-content: start;

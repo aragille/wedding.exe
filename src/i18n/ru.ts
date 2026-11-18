@@ -59,6 +59,7 @@ export const ru: Dict = {
     dateLabel: 'ДАТА',
     timeLabel: 'НАЧАЛО',
     venueLabel: 'МЕСТО',
+    cityLabel: 'ГОРОД',
     addressLabel: 'АДРЕС',
     dressLabel: 'ДРЕСС-КОД',
     deadlineLabel: 'ОТВЕТ ДО',
