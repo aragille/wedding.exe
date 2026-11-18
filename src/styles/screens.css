@@ -1218,6 +1218,7 @@
   /* longest line ("DANCING TIL" ≈ 5.9em) always fits → every label is 1–2 lines in both languages */
   font-size: min(clamp(30px, 9vw, 64px), calc((100cqi - 102px) / 6.1));
   line-height: 0.9;
+  text-wrap: balance;
   text-transform: uppercase;
 }
 .plan__actions {

@@ -24,9 +24,9 @@ Same drop-in rule: put a **512×512 transparent PNG** at the path and it replace
 
 | ID | File | Shows | Used on | Status |
 |---|---|---|---|---|
-| ASSET_10 | `public/assets/objects/olives.png` | Olives on a cocktail pick | DINNER | installed |
+| ASSET_10 | `public/assets/objects/olives.png` | Olives on a cocktail pick | FEAST LIKE ROYALTY | installed |
 | ASSET_11 | `public/assets/objects/cocktail.png` | Martini glass with an olive | BOOZE, LOTS OF IT | installed |
-| ASSET_12 | `public/assets/objects/gamepad.png` | Game controller | GAMES | installed |
+| ASSET_12 | `public/assets/objects/gamepad.png` | Game controller | GAMES, NO MERCY | installed |
 | ASSET_13 | `public/assets/objects/disco-ball.png` | Mirror / disco ball | DANCING TIL WE DROP | installed |
 | ASSET_14 | `public/assets/objects/mic.png` | Handheld microphone | next to 17:00 | installed |
 | ASSET_15 | `public/assets/objects/music.png` | Music notes or a vinyl record | next to 17:00 | installed |

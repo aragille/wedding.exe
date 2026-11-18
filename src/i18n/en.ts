@@ -53,9 +53,9 @@ export const en = {
     dressLabel: 'DRESS CODE',
     deadlineLabel: 'RSVP BY',
     items: {
-      dinner: 'DINNER',
+      dinner: 'FEAST LIKE ROYALTY',
       drinks: 'BOOZE, LOTS OF IT',
-      games: 'GAMES',
+      games: 'GAMES, NO MERCY',
       dancing: 'DANCING TIL WE DROP',
     },
     cta: 'JOIN THE PARTY',

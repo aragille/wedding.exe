@@ -63,9 +63,9 @@ export const ru: Dict = {
     dressLabel: 'ДРЕСС-КОД',
     deadlineLabel: 'ОТВЕТ ДО',
     items: {
-      dinner: 'УЖИН',
+      dinner: 'ПИР ГОРОЙ',
       drinks: 'БУХЛО РЕКОЙ',
-      games: 'ИГРЫ',
+      games: 'ИГРЫ БЕЗ ПОЩАДЫ',
       dancing: 'ТАНЦЫ ДО УПАДУ',
     },
     cta: 'ПРИСОЕДИНИТЬСЯ',
