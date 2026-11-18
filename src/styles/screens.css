@@ -1133,6 +1133,28 @@
   padding: 12px 0;
   border-bottom: 1px solid var(--black);
 }
+/* coloured item tiles; the art has ~17% built-in padding, so crop it to fill the tile */
+.plan__art,
+.plan__float {
+  background: var(--tile, var(--paper));
+}
+.tile--lime {
+  --tile: var(--lime);
+}
+.tile--lavender {
+  --tile: var(--lavender);
+}
+.tile--blue {
+  --tile: var(--blue);
+}
+.tile--orange {
+  --tile: var(--orange);
+}
+.plan__art .pixel-asset__img,
+.plan__float .pixel-asset__img {
+  transform: scale(1.3);
+}
+
 /* retro item wobble: 4 hard frames, no easing — each object on its own beat */
 .plan__art,
 .plan__float {

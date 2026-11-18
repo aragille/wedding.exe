@@ -23,6 +23,17 @@ const ART: Record<ProgramItem, AssetKey> = {
 /** extra party objects on the shelf next to the start time */
 const SHELF: AssetKey[] = ['object.music', 'object.mic', 'object.champagne']
 
+/** tile colour behind each object — picked for contrast with the art */
+const TILE: Partial<Record<AssetKey, string>> = {
+  'object.olives': 'lavender',
+  'object.cocktail': 'blue',
+  'object.gamepad': 'lime',
+  'object.discoBall': 'orange',
+  'object.music': 'lime',
+  'object.mic': 'lavender',
+  'object.champagne': 'orange',
+}
+
 const STICKERS: StickerSpec[] = [
   { name: 'sparkle', x: 58, y: 5, size: 20, palette: { a: '#7A6CE0', h: '#0B0B0D' }, float: true },
   { name: 'plus', x: 2, y: 62, size: 14, palette: { a: '#FF4D16' }, hideOnMobile: true },
@@ -65,7 +76,7 @@ export function PlanScreen({ onJoin }: Props) {
               <PixelWordmark text={event.startTime} palette="orange" cell={4} depth={5} className="plan__time-mark" />
             )}
             {SHELF.map((asset) => (
-              <div key={asset} className="plan__float">
+              <div key={asset} className={`plan__float tile--${TILE[asset]}`}>
                 <PixelAsset asset={asset} size="100%" decorative />
               </div>
             ))}
@@ -84,7 +95,7 @@ export function PlanScreen({ onJoin }: Props) {
         <ol className="plan__list">
           {event.program.map((item, i) => (
             <motion.li key={item} className="plan__item" {...rise(i)}>
-              <div className="plan__art">
+              <div className={`plan__art tile--${TILE[ART[item]]}`}>
                 <PixelAsset asset={ART[item]} size="100%" decorative />
               </div>
               <span className="plan__label">{t.plan.items[item]}</span>
