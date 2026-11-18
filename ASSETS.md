@@ -18,6 +18,22 @@ All files: **transparent PNG**, nearest-neighbour pixel art, same palette / prop
 | ASSET_08 | `public/assets/couple/couple-hero.png` | 1024×1024 | Invitation poster (main) | no | installed |
 | ASSET_09 | `public/assets/couple/couple-celebration.png` | 512×512 | RSVP "yes" confirmation | no | installed |
 
+## Party objects (THE PLAN page)
+
+Same drop-in rule: put a **512×512 transparent PNG** at the path and it replaces the placeholder.
+
+| ID | File | Shows | Used on | Status |
+|---|---|---|---|---|
+| ASSET_10 | `public/assets/objects/olives.png` | Olives on a cocktail pick | DINNER | placeholder |
+| ASSET_11 | `public/assets/objects/cocktail.png` | Martini glass with an olive | DRINKS | placeholder |
+| ASSET_12 | `public/assets/objects/gamepad.png` | Game controller | GAMES | placeholder |
+| ASSET_13 | `public/assets/objects/disco-ball.png` | Mirror / disco ball | A LOT OF DANCING | placeholder |
+| ASSET_14 | `public/assets/objects/mic.png` | Handheld microphone | next to 17:00 | placeholder |
+| ASSET_15 | `public/assets/objects/music.png` | Music notes or a vinyl record | next to 17:00 | placeholder |
+| ASSET_16 | `public/assets/objects/champagne.png` | Champagne bottle | next to 17:00 | placeholder |
+
+Objects are shown in square frames, so keep each object centred with some breathing room.
+
 ## Consistency rules
 - Same character design in every file: Ilia — wavy brown hair, white tee, black crossbody bag, black wide trousers, white sneakers. Anna — long wavy brown hair, white sweater, black shoulder bag, light-blue wide jeans, dark shoes.
 - Sprites face **right**; the game mirrors Ilia when walking left.

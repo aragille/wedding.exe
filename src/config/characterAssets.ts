@@ -1,3 +1,5 @@
+import type { PixelArtName } from '../lib/pixelArt'
+
 /**
  * CHARACTER ASSET MANIFEST
  * ------------------------------------------------------------------
@@ -17,6 +19,13 @@ export type AssetKey =
   | 'couple.reunion'
   | 'couple.hero'
   | 'couple.celebration'
+  | 'object.olives'
+  | 'object.cocktail'
+  | 'object.gamepad'
+  | 'object.discoBall'
+  | 'object.mic'
+  | 'object.music'
+  | 'object.champagne'
 
 export interface SpriteSpec {
   frames: number
@@ -40,12 +49,38 @@ export interface CharacterAsset {
   description: string
   /** Placeholder accent colour token name */
   tone: 'lime' | 'lavender' | 'blue' | 'orange'
-  /** Who appears (drives the placeholder silhouette) */
-  subject: 'ilia' | 'anna' | 'couple'
+  /** Who / what appears (drives the placeholder silhouette) */
+  subject: 'ilia' | 'anna' | 'couple' | 'object'
+  /** objects: pixel silhouette shown in the placeholder */
+  icon?: PixelArtName
   sprite?: SpriteSpec
 }
 
 const A = (a: CharacterAsset) => a
+
+/** Party objects for the itinerary page — 512×512 PNG, transparent background. */
+const O = (
+  id: string,
+  key: AssetKey,
+  file: string,
+  label: string,
+  description: string,
+  tone: CharacterAsset['tone'],
+  icon: PixelArtName,
+) =>
+  A({
+    id,
+    key,
+    src: `/assets/objects/${file}.png`,
+    aspect: 1,
+    nativeWidth: 512,
+    nativeHeight: 512,
+    label,
+    description,
+    tone,
+    subject: 'object',
+    icon,
+  })
 
 export const characterAssets: Record<AssetKey, CharacterAsset> = {
   'ilia.portrait': A({
@@ -157,4 +192,59 @@ export const characterAssets: Record<AssetKey, CharacterAsset> = {
     tone: 'lime',
     subject: 'couple',
   }),
+  'object.olives': O(
+    'ASSET_10',
+    'object.olives',
+    'olives',
+    'OBJECT / OLIVES',
+    'Olives on a cocktail pick — dinner',
+    'lime',
+    'olives',
+  ),
+  'object.cocktail': O(
+    'ASSET_11',
+    'object.cocktail',
+    'cocktail',
+    'OBJECT / COCKTAIL',
+    'Martini glass with an olive — drinks',
+    'lavender',
+    'cocktail',
+  ),
+  'object.gamepad': O(
+    'ASSET_12',
+    'object.gamepad',
+    'gamepad',
+    'OBJECT / GAMEPAD',
+    'Game controller — games',
+    'blue',
+    'gamepad',
+  ),
+  'object.discoBall': O(
+    'ASSET_13',
+    'object.discoBall',
+    'disco-ball',
+    'OBJECT / DISCO BALL',
+    'Mirror ball — dancing',
+    'orange',
+    'discoBall',
+  ),
+  'object.mic': O('ASSET_14', 'object.mic', 'mic', 'OBJECT / MIC', 'Handheld microphone', 'lavender', 'mic'),
+  'object.music': O(
+    'ASSET_15',
+    'object.music',
+    'music',
+    'OBJECT / MUSIC',
+    'Music notes or a vinyl record',
+    'lime',
+    'music',
+  ),
+  'object.champagne': O(
+    'ASSET_16',
+    'object.champagne',
+    'champagne',
+    'OBJECT / CHAMPAGNE',
+    'Champagne bottle',
+    'orange',
+    'champagne',
+  ),
 }

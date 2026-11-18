@@ -20,6 +20,8 @@ export interface EventConfig {
     mapUrl: string | null
   }
   startTime: string | null // e.g. '16:00'
+  /** itinerary, in order — labels live in i18n `plan.items` */
+  program: Array<'dinner' | 'drinks' | 'games' | 'dancing'>
   dressCode: Localized | null
   rsvpDeadline: string | null // ISO date
   rsvp: {
@@ -41,7 +43,8 @@ export const event: EventConfig = {
     city: null,
     mapUrl: null,
   },
-  startTime: null,
+  startTime: '17:00',
+  program: ['dinner', 'drinks', 'games', 'dancing'],
   dressCode: null,
   rsvpDeadline: null,
   rsvp: {

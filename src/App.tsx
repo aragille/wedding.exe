@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { useReducedMotion } from 'motion/react'
 import { StartScreen, type StartPhase } from './screens/StartScreen'
 import { InvitationScreen } from './screens/InvitationScreen'
+import { PlanScreen } from './screens/PlanScreen'
 import { RSVPScreen, type RsvpOutcome } from './screens/RSVPScreen'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { SoundToggle } from './components/SoundToggle'
@@ -17,15 +18,15 @@ import { uid } from './lib/random'
 import { useI18n } from './i18n'
 
 /**
- * Screen state machine — exactly three primary screens on one URL:
- *   start (title ⇄ game)  →  invite  →  rsvp
+ * Screen state machine — four primary screens on one URL:
+ *   start (title ⇄ game)  →  invite  →  plan  →  rsvp
  * Browser back/forward is mapped onto the same states via history.state.
  */
-export type Screen = 'start' | 'invite' | 'rsvp'
+export type Screen = 'start' | 'invite' | 'plan' | 'rsvp'
 type Wipe = { phase: 'idle' | 'cover' | 'reveal'; color: string }
 type HistoryState = { screen: Screen; phase?: StartPhase }
 
-const ORDER: Screen[] = ['start', 'invite', 'rsvp']
+const ORDER: Screen[] = ['start', 'invite', 'plan', 'rsvp']
 const COVER_MS = 320
 const REVEAL_MS = 340
 
@@ -68,7 +69,8 @@ export default function App() {
       if (busy.current) return
       if (push) window.history.pushState({ screen: to, phase } satisfies HistoryState, '')
       const forward = ORDER.indexOf(to) >= ORDER.indexOf(screen)
-      const wipeColor = to === 'invite' && forward ? color.lime : to === 'rsvp' ? color.blue : color.lavender
+      const wipeColors: Partial<Record<Screen, string>> = { invite: color.lime, plan: color.orange, rsvp: color.blue }
+      const wipeColor = (forward && wipeColors[to]) || color.lavender
       if (reduced) {
         applyScreen(to, phase)
         focusHeading()
@@ -144,19 +146,21 @@ export default function App() {
 
   const backTarget =
     screen === 'rsvp'
-      ? () => go('invite')
-      : screen === 'invite'
-        ? () => go('start')
-        : startPhase === 'game'
-          ? () => {
-              play('click')
-              setStartPhase('title')
-              window.history.pushState({ screen: 'start', phase: 'title' } satisfies HistoryState, '')
-            }
-          : null
+      ? () => go('plan')
+      : screen === 'plan'
+        ? () => go('invite')
+        : screen === 'invite'
+          ? () => go('start')
+          : startPhase === 'game'
+            ? () => {
+                play('click')
+                setStartPhase('title')
+                window.history.pushState({ screen: 'start', phase: 'title' } satisfies HistoryState, '')
+              }
+            : null
 
-  const surface = screen === 'invite' ? 'light' : 'dark'
-  const step = ORDER.indexOf(screen) as 0 | 1 | 2
+  const surface = screen === 'invite' || screen === 'plan' ? 'light' : 'dark'
+  const step = ORDER.indexOf(screen)
 
   return (
     <>
@@ -188,7 +192,8 @@ export default function App() {
             onGameComplete={onGameComplete}
           />
         )}
-        {screen === 'invite' && <InvitationScreen onJoin={() => go('rsvp')} />}
+        {screen === 'invite' && <InvitationScreen onJoin={() => go('plan')} />}
+        {screen === 'plan' && <PlanScreen onJoin={() => go('rsvp')} />}
         {screen === 'rsvp' && (
           <RSVPScreen
             draft={draft}

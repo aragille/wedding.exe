@@ -142,6 +142,7 @@ export function PixelAsset({
 /* ------------------------------------------------------------------ */
 
 const silhouetteFor = (spec: CharacterAsset): PixelArtName => {
+  if (spec.icon) return spec.icon
   if (spec.subject === 'couple') return 'couple'
   const isBust = spec.key.endsWith('portrait')
   if (spec.subject === 'ilia') return isBust ? 'bustA' : 'bodyA'

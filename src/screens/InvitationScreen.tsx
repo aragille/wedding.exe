@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react'
-import { dictionaries, formatLongDate, LANGS, useI18n } from '../i18n'
+import { dictionaries, LANGS, useI18n } from '../i18n'
 import { event } from '../config/event'
 import { PixelAsset } from '../components/PixelAsset'
 import { PixelWordmark } from '../components/PixelWordmark'
@@ -34,19 +34,9 @@ export function InvitationScreen({ onJoin }: Props) {
           transition: { delay: 0.25 + i * 0.08, duration: 0.42, ease: [0.2, 0.9, 0.2, 1] as const },
         }
 
-  const details: Array<{ k: string; v: string }> = [
-    { k: t.invite.dateLabel, v: formatLongDate(event.date, lang) },
-    { k: t.invite.venueLabel, v: event.venue.name[lang].toUpperCase() },
-  ]
-  if (event.startTime) details.push({ k: t.invite.timeLabel, v: event.startTime })
-  if (event.venue.address) details.push({ k: t.invite.addressLabel, v: event.venue.address[lang] })
-  if (event.venue.city) details.push({ k: '', v: event.venue.city[lang] })
-  if (event.dressCode) details.push({ k: t.invite.dressLabel, v: event.dressCode[lang] })
-  if (event.rsvpDeadline) details.push({ k: t.invite.deadlineLabel, v: formatLongDate(event.rsvpDeadline, lang) })
-
   return (
     <section className="screen invite" aria-labelledby="invite-title">
-      <div className="invite__grid" aria-hidden="true" />
+      <div className="paper-grid" aria-hidden="true" />
       <StickerField items={STICKERS} />
 
       <div className="invite__inner">
@@ -89,15 +79,6 @@ export function InvitationScreen({ onJoin }: Props) {
           <PixelWordmark text={`${dd}.${mm}.${yy}`} palette="orange" cell={4} depth={5} className="invite__date-mark" />
         </div>
 
-        <dl className="invite__details">
-          {details.map((d, i) => (
-            <div key={i} className="invite__row">
-              <dt>{d.k}</dt>
-              <dd>{d.v}</dd>
-            </div>
-          ))}
-        </dl>
-
         <div className="invite__closing">
           {/* every translation sits in the same cell; only the active one is visible, so the
               block is as tall as the longest language and switching never shifts the layout */}
@@ -112,11 +93,6 @@ export function InvitationScreen({ onJoin }: Props) {
             <ArcadeButton size="lg" arrow surface="light" onClick={onJoin}>
               {t.invite.cta}
             </ArcadeButton>
-            {event.venue.mapUrl && (
-              <a className="text-btn text-btn--ink" href={event.venue.mapUrl} target="_blank" rel="noreferrer">
-                [ {t.invite.map} &gt; ]
-              </a>
-            )}
           </div>
         </div>
       </div>

@@ -1,16 +1,21 @@
 import { useI18n } from '../i18n'
 
-/** Minimal three-segment progress: LVL 01 ▮▯▯ */
-export function ProgressIndicator({ step }: { step: 0 | 1 | 2 }) {
+/** Minimal segmented progress: 01/04 ▮▯▯▯ */
+export function ProgressIndicator({ step }: { step: number }) {
   const { t } = useI18n()
+  const total = t.common.levels.length
   return (
-    <div className="progress" aria-label={`${t.common.progress}: ${step + 1} / 3 — ${t.common.levels[step]}`} role="img">
+    <div
+      className="progress"
+      aria-label={`${t.common.progress}: ${step + 1} / ${total} — ${t.common.levels[step]}`}
+      role="img"
+    >
       <span className="progress__num" aria-hidden="true">
         0{step + 1}
-        <small>/03</small>
+        <small>/0{total}</small>
       </span>
       <span className="progress__bars" aria-hidden="true">
-        {[0, 1, 2].map((i) => (
+        {t.common.levels.map((_, i) => (
           <i key={i} className={i < step ? 'is-done' : i === step ? 'is-current' : ''} />
         ))}
       </span>
