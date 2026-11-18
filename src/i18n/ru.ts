@@ -64,7 +64,7 @@ export const ru: Dict = {
     deadlineLabel: 'ОТВЕТ ДО',
     items: {
       dinner: 'УЖИН',
-      drinks: 'НАПИТКИ',
+      drinks: 'БУХЛО РЕКОЙ',
       games: 'ИГРЫ',
       dancing: 'ТАНЦЫ ДО УПАДУ',
     },

@@ -54,7 +54,7 @@ export const en = {
     deadlineLabel: 'RSVP BY',
     items: {
       dinner: 'DINNER',
-      drinks: 'DRINKS',
+      drinks: 'BOOZE, LOTS OF IT',
       games: 'GAMES',
       dancing: 'DANCING TIL WE DROP',
     },
