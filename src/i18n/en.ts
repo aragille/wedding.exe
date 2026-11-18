@@ -56,7 +56,7 @@ export const en = {
       dinner: 'DINNER',
       drinks: 'DRINKS',
       games: 'GAMES',
-      dancing: 'A LOT OF DANCING',
+      dancing: 'DANCING TIL WE DROP',
     },
     cta: 'JOIN THE PARTY',
     map: 'MAP',

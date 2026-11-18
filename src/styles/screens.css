@@ -1120,6 +1120,7 @@
 /* program list */
 .plan__list {
   display: grid;
+  container-type: inline-size;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1192,7 +1193,8 @@
   font-family: var(--font-display);
   font-weight: 900;
   font-stretch: 45%;
-  font-size: clamp(30px, 9vw, 64px);
+  /* longest line ("DANCING TIL" ≈ 5.9em) always fits → every label is 1–2 lines in both languages */
+  font-size: min(clamp(30px, 9vw, 64px), calc((100cqi - 102px) / 6.1));
   line-height: 0.9;
   text-transform: uppercase;
 }
@@ -1207,6 +1209,9 @@
   .plan__item {
     grid-template-columns: 112px 1fr;
     gap: 26px;
+  }
+  .plan__label {
+    font-size: min(64px, calc((100cqi - 138px) / 6.1));
   }
 }
 
@@ -1240,6 +1245,9 @@
   .plan__item {
     grid-template-columns: 128px 1fr;
     padding: 14px 0;
+  }
+  .plan__label {
+    font-size: min(64px, calc((100cqi - 154px) / 6.1));
   }
 }
 

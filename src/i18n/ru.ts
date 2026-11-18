@@ -66,7 +66,7 @@ export const ru: Dict = {
       dinner: 'УЖИН',
       drinks: 'НАПИТКИ',
       games: 'ИГРЫ',
-      dancing: 'МНОГО ТАНЦЕВ',
+      dancing: 'ТАНЦЫ ДО УПАДУ',
     },
     cta: 'ПРИСОЕДИНИТЬСЯ',
     map: 'КАРТА',
